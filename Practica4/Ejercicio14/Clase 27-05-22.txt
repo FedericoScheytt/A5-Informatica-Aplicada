@@ -1,0 +1,15 @@
+Observacion ejercicio Avion (11?):
+   protected: A estos datos podemos acceder desde una clase que hereda de la misma. 
+   private: No podremos acceder a los datos desde una clase que hereda de la misma, 
+            solamente podremosa acceder a esos datos mediante funciones pertenecientes 
+	    a la misma clase.
+
+El garbage collector no libera memoria para las variables que creamos con new ..., hay
+que liberar la memoria a mano con delete.
+
+Funciones virtuales (por defecto en destructores), nos sirven para utilizar funciones
+con el mismo nombre que pertenecen a clase diferentes y se implementan de manera
+diferente.
+
+Ver solos ejercicio de clase Abstracta (compuertas)
+Configurar opciones de apagado de pantalla, suspencion, etc
