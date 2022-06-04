@@ -13,11 +13,20 @@ Paquete::Paquete(const char* ipe, const char* ipr, unsigned int id, const char* 
     ID = id;
     if(strlen(d)<DATA_LENGHT){
         dato = new char[DATA_LENGHT+1];
-        char* ceros = new char[DATA_LENGHT-strlen(d)];        
-        strncpy(dato, d, strlen(d));
-        strncat(dato, " Hola!", DATA_LENGHT+1);
+        char* ceros = new char[DATA_LENGHT-(strlen(d)+1)];
+        for (int i = 0; i < DATA_LENGHT-(strlen(d)+1); i++)
+        {
+            if (i%2)
+            {
+                *(ceros+i) = '0';
+            } else {
+                *(ceros+i) = '1';
+            }
+        }
+        strncpy(dato, d, strlen(d)+1);
+        strncat(dato, ceros, DATA_LENGHT+1);
     }else {
-        dato = (char*)"0";
+        dato = (char*)'0';
     }
 }
 
