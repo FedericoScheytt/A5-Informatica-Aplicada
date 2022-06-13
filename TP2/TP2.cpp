@@ -10,16 +10,14 @@
 
 #include "TP2Lib.h"
 #include "TP2Lib.cpp"
-#include "Input.cpp"
-#include "Output.cpp"
+#include "Cronometer.cpp"
 
 int main(){
 
     srand(time(NULL));
 
     do{
-        Input in;
-        Output out;
+        Cronometer c;
         int temp = 0;
         int state = 0;
         int n = numbEvents();
@@ -27,9 +25,9 @@ int main(){
         printTitle();
 
         for (int i = 0; i < n; i++){
-            in.setRandomInput();
-            out.setOutput(in.getButton(), in.getEnd(), &state);
-            printEvent(i, in.getButton(), in.getEnd(), out.getENA1(), out.getENA2(), &temp, &state);
+            c.setRandomInput();
+            c.setOutput(c.getButton(), c.getEnd(), &state);
+            printEvent(i, c.getButton(), c.getEnd(), c.getENA1(), c.getENA2(), c.getReset(), &temp, &state);
         }
         
     }while(wantToContinue());

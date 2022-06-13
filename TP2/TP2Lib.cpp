@@ -22,12 +22,12 @@ void printTitle(){
 	cout << "| n | Button | End | ENA1 | ENA2 | Reset | Event        |" << endl;
 }
 
-void printEvent(int i, int b, int e, int ena1, int ena2, int* t, int* s){
+void printEvent(int i, int b, int e, int ena1, int ena2, int r, int* t, int* s){
     cout << "| " << i << " | ";
     cout << b <<  "      | " << e << "   | ";
     cout << ena1 << "    | " << ena2 << "    | ";
 
-    if(*s==4){
+    if(r){
         cout << "1     | ";
     } else {
         cout << "0     | ";
