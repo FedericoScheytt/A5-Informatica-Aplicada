@@ -11,14 +11,14 @@
 #include "TP2Lib.h"
 
 typedef struct{
-    int end;
-    int button;
+    unsigned int end : 1;
+    unsigned int button : 1;
 }input;
 
 typedef struct {
-    int ENA1;
-    int ENA2;
-    int reset;
+    unsigned int ENA1 : 1;
+    unsigned int ENA2 : 1;
+    unsigned int reset : 1;
 }output;
 
 class Cronometer{
@@ -30,7 +30,7 @@ public:
     void setRandomInput();
     int getButton();
     int getEnd();
-    void setOutput(int, int, int*);
+    void setOutput(unsigned int, unsigned int, int*);
     int getENA1();
     int getENA2();
     int getReset();

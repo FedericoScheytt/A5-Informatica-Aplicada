@@ -31,7 +31,7 @@ int Cronometer::getEnd(){
     return in.end;
 }
 
-void Cronometer::setOutput(int b, int e, int* s){
+void Cronometer::setOutput(unsigned int b, unsigned int e, int* s){
 	if(b==0 && e==0 && *s==0){
 		out.ENA1 = 1;
 		out.ENA2 = 0;
