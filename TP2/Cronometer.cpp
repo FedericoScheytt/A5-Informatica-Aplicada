@@ -12,7 +12,7 @@
 
 Cronometer::Cronometer(){
     in.button = 1;
-    in.button = 1;
+    in.end = 1;
     out.ENA1 = 0;
     out.ENA2 = 0;
 	out.reset = 1;
