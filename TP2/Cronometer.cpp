@@ -1,77 +1,115 @@
 /**
  * @file Cronometer.cpp
  * @author Grupo N3
- * @version 0.1
- * @date 2022-06-13
- * 
- * @copyright Copyright (c) 2022
- * 
+ * @version 0.2
+ * @date 05-07-2022
  */
 
 #include "Cronometer.h"
 
 Cronometer::Cronometer(){
-    in.end = 1;
     in.button = 1;
+    in.end = 1;
+	in.reset = 1;
     out.ENA1 = 0;
     out.ENA2 = 0;
-	out.reset = 1;
+    s = stand_by;
 }
 
 void Cronometer::setRandomInput(){
     in.button = rand() % 2;
     in.end = rand() % 2;
+    in.reset = rand() % 2;
 }
 
-int Cronometer::getButton(){
-    return in.button;
-}
-
-int Cronometer::getEnd(){
-    return in.end;
-}
-
-void Cronometer::setOutput(unsigned int b, unsigned int e, int* s){
-	if(b==0 && e==0 && *s==0){
-		out.ENA1 = 1;
-		out.ENA2 = 0;
-		out.reset = 0;
-		*s = 1;
-	}
-	else if(b==1 && e==0 && *s==1){
-		*s = 2;
-	}
-	else if(b==0 && e==0 && *s==2){
-		out.ENA1 = 0;
-		out.ENA2 = 1;
-		*s = 3;
-	}
-	else if(b==1 && e==0 && *s==3){
-		*s = 0;
-	}
-	else if((b==0 && e==1)&&(*s==1||*s==3)){
-		*s = 4;
-	}
-	else if(b==1 && e==1 && (*s==1||*s==3||*s==4)){
+void Cronometer::setOutput(){
+	t = s;
+	if(!in.reset){
 		out.ENA1 = 0;
 		out.ENA2 = 0;
-		out.reset = 1;
-		*s=0;
+		s = stand_by;
+	} else if(!in.end){
+		s = e_end;
+	} else {
+			switch (s){
+				case stand_by:
+					if(in.button==0){
+						out.ENA1 = 1;
+						out.ENA2 = 0;
+						s = b1_pressed;
+					}
+					break;
+				case b1_pressed:
+					if(in.button==1){
+						s = b1_released;
+					}
+					break;
+				case b1_released:
+					if(in.button==0){
+						out.ENA1 = 0;
+						out.ENA2 = 1;
+						s = b2_pressed;
+					}
+					break;
+				case b2_pressed:
+					if(in.button==1){
+						s = b2_released;
+					}
+					break;
+				case b2_released:
+					if(in.button==0){
+						out.ENA1 = 1;
+						out.ENA2 = 0;
+						s = b1_pressed;
+					}
+					break;
+				case e_end:
+					break;
+			}
 	}
 }
 
-int Cronometer::getENA1(){
-    return out.ENA1;
-}
+void Cronometer::printEvent(int i){
+	if(i<10){
+		cout << "| 0" << i << " | ";
+	} else {
+		cout << "| " << i << " | ";
+	}
 
-int Cronometer::getENA2(){
-    return out.ENA2;
-}
+    cout << in.button <<  "      | " << in.end << "   | ";
 
-int Cronometer::getReset(){
-	return out.reset;
-}
+    if(in.reset){
+        cout << "1     | ";
+    } else {
+        cout << "0     | ";
+    }
 
-Cronometer::~Cronometer(){
+    cout << out.ENA1 << "    | " << out.ENA2 << "    | ";
 
+    switch (s){
+    	case stand_by:
+    		cout << "stand_by     |";
+    		break;
+		case b1_pressed:
+			cout << "b1_pressed   |";
+			break;
+		case b1_released:
+			cout << "b1_released  |";
+			break;
+		case b2_pressed:
+			cout << "b2_pressed   |";
+			break;
+		case b2_released:
+			cout << "b2_released  |";
+			break;
+		case e_end:
+			cout << "e_end        |";
+			break;
+    }
+    if(t == s){
+		cout << " No relevante |" << endl;
+	} else {
+		cout << " Relevante    |" << endl;
+		t = s;
+	}
 }
